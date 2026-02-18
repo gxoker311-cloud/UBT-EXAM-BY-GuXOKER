@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Gxoker Ultra UBT V3.0 - New Set</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #00d2ff; 
+            --secondary: #3a7bd5; 
+            --success: #00ff87; 
+            --danger: #ff0055; 
+            --dark: #080e1a;
+            --gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Montserrat', 'Pyidaungsu', sans-serif; }
+
+        body { 
+            margin: 0; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; color: #fff;
+            background: radial-gradient(circle at top right, #1e293b, #080e1a);
+        }
+
+        .train-container { background: #ffd700; color: #000; height: 28px; display: flex; align-items: center; overflow: hidden; position: relative; font-weight: 800; font-size: 12px; }
+        .train-text { position: absolute; white-space: nowrap; animation: trainRun 25s linear infinite; }
+        @keyframes trainRun { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        #login-screen { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 15px; background: inherit; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+
+        #exam-screen { display: none; flex-direction: column; height: 100dvh; background: #eef2f6; color: #1e293b; }
+        .ubt-header { display: flex; background: var(--dark); color: #fff; height: 50px; }
+        .h-box { flex: 1; border-right: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 11px; }
+
+        .main-view { display: flex; flex: 1; overflow: hidden; padding: 12px; gap: 12px; }
+        
+        .q-pane, .a-pane { 
+            flex: 1; background: #fff; border-radius: 25px; padding: 20px; overflow-y: auto; 
+            border: 4px solid transparent; 
+            background-image: linear-gradient(white, white), var(--gradient);
+            background-origin: border-box; background-clip: padding-box, border-box;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+        }
+        
+        .q-text { font-size: 14px; line-height: 1.7; font-weight: 600; color: #2d3748; }
+        .img-q { width: 100%; max-width: 280px; border-radius: 15px; margin: 12px 0; border: 3px solid #f1f5f9; }
+
+        .ans-item { 
+            display: flex; align-items: center; padding: 14px; border-radius: 15px; 
+            cursor: pointer; margin-bottom: 12px; font-size: 13.5px; font-weight: 600;
+            background: #f8fafc; border: 1px solid #e2e8f0;
+            box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ans-item:active { transform: scale(0.96); box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff; }
+        .ans-item.selected { background: var(--gradient); color: #fff; border-color: transparent; box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2); }
+        .ans-num { width: 26px; height: 26px; border: 2px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 11px; flex-shrink: 0; }
+
+        .ubt-footer { display: flex; height: 60px; background: var(--dark); padding: 8px; gap: 8px; }
+        .f-btn { flex: 1; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 11px; border-radius: 12px; transition: 0.2s; background: rgba(255,255,255,0.05); }
+
+        #result-screen { position: fixed; inset: 0; z-index: 6000; background: #0f172a; display: none; flex-direction: column; align-items: center; padding: 20px; overflow-y: auto; }
+        .result-card { background: #fff; width: 100%; max-width: 480px; border-radius: 30px; padding: 30px; text-align: center; color: #000; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+        .review-box { width: 100%; max-width: 480px; margin-top: 25px; padding-bottom: 60px; }
+        .rev-card { background: #fff; border-radius: 20px; padding: 18px; margin-bottom: 15px; color: #334155; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border: 2px solid #eee; }
+        .rev-tag { position: absolute; top: 0; right: 0; padding: 6px 18px; font-size: 11px; font-weight: 900; color: #fff; border-bottom-left-radius: 15px; }
+
+        @media (max-width: 768px) { .main-view { flex-direction: column; } }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="glass-card" style="width: 100%; max-width: 450px; overflow: hidden;">
+            <div style="background: var(--gradient); padding: 25px; text-align: center; font-family: 'Orbitron'; font-weight: 700;">GXOKER UBT ELITE</div>
+            <div style="padding: 30px;">
+                <label style="font-size:10px; color:var(--primary); font-weight: 800;">STUDENT NAME</label>
+                <input type="text" id="c-name" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:12px; color:#fff; margin-top:8px; outline:none;" placeholder="Enter Name">
+                <div style="display:flex; gap:15px; margin-top:25px; align-items:center;">
+                    <img id="img-prev" src="https://i.imgur.com/edHMTVH.jpeg" style="width:90px; height:115px; border-radius:15px; border:2px solid var(--primary); object-fit:cover;">
+                    <label for="file-input" style="background:var(--gradient); padding:12px 20px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:bold;">UPLOAD PHOTO</label>
+                    <input type="file" id="file-input" accept="image/*" style="display:none;">
+                </div>
+            </div>
+            <button id="start-btn" style="background: var(--gradient); color: #fff; border: none; padding: 22px; cursor: pointer; font-weight: 800; width: 100%; font-size: 17px;">START EXAMINATION</button>
+        </div>
+    </div>
+
+    <div id="exam-screen">
+        <div class="ubt-header">
+            <div class="h-box" id="d-name">NAME</div>
+            <div class="h-box" style="color:var(--primary)">V-3.0 ELITE</div>
+            <div class="h-box">REM: <span id="rem-count">20</span></div>
+            <div class="h-box" id="timer-val" style="color:var(--success);">20:00</div>
+        </div>
+        <div class="train-container">
+            <div class="train-text">GXOKER PREMIUM UBT SYSTEM ——— EPS-TOPIK SPECIAL EXAM (SET 3) ——— အမှတ်စာရင်းကို GOOGLE SHEET သို့ ပို့ပေးပါမည် ———</div>
+        </div>
+        <div class="main-view">
+            <div class="q-pane" id="q-content"></div>
+            <div class="a-pane" id="ans-list"></div>
+        </div>
+        <div class="ubt-footer">
+            <div class="f-btn" onclick="step(-1)">PREVIOUS</div>
+            <div class="f-btn" onclick="openGrid()" style="background:rgba(0,210,255,0.1)">LIST</div>
+            <div class="f-btn" onclick="step(1)">NEXT</div>
+            <div class="f-btn" id="sub-btn" style="background:var(--danger);">FINISH</div>
+        </div>
+    </div>
+
+    <div id="result-screen">
+        <div class="result-card">
+            <img id="r-photo" style="width:110px; height:130px; border-radius:15px; border:3px solid var(--secondary); object-fit:cover; margin-bottom: 15px;">
+            <h2 id="r-name" style="margin: 0;">NAME</h2>
+            <div id="pass-fail-tag" style="font-family:'Orbitron'; font-size:42px; font-weight:900; margin: 10px 0;">PASS</div>
+            <div id="res-score" style="font-size:65px; font-weight:900; color:var(--secondary);">0</div>
+            <p id="r-stats" style="font-weight:700; color:#718096; font-size: 15px;">Correct: 0/20</p>
+            <button style="width:100%; padding:18px; border-radius:15px; background:var(--dark); color:#fff; border:none; font-weight:bold; cursor:pointer; margin-top:20px;" onclick="location.reload()">RETAKE EXAM</button>
+        </div>
+        <div class="review-box" id="review-list"></div>
+    </div>
+
+<script>
+    const questions = [
+        { q: "[1] 다음 그림을 보고 맞는 단어나 문장을 고르십시오.", img: "https://i.imgur.com/V4Y0byI.jpeg", a: ["배에 화물을 싣고 있습니다.", "트럭에서 짐을 내리고 있습니다.", "비행기로 물건을 운송하고 있습니다.", "창고에 자재를 쌓고 있습니다."], c: 0 },
+        { q: "[2] 다음 그림을 보고 맞는 단어나 문장을 고르십시오.", img: "https://i.imgur.com/iMmhVUH.jpeg", a: ["감전의 위험이 있으니 조심하십시오.", "화상의 위험이 있으니 만지지 마십시오.", "미끄러울 수 있으니 천천히 걸으십시오.", "물체가 떨어질 수 있으니 안전모를 쓰십시오."], c: 1 },
+        { q: "[3] 다음 중 부분이 문법적으로 맞는 것을 고르십시오.<br><br>① 어제 너무 (피곤하느라고) 일찍 잤어요.<br>② 한국에 (오면) 꼭 김치를 먹어 보세요.<br>③ 비가 (오든지) 축구를 할 거예요.<br>④ 노래를 (부르다가) 잠이 들었습니다.", a: ["1번", "2번", "3번", "4번"], c: 1 },
+        { q: "[4] 다음 중 부분이 문법적으로 맞는 것을 고르십시오.<br><br>① 숙제를 (해 보니까) 생각보다 어렵지 않았어요.<br>② 고향에 (가면서) 선물을 샀어요.<br>③ 공부를 (해야) 합격할 수 없어요.<br>④ 밥을 (먹으러) 손을 씻고 오세요.", a: ["1번", "2번", "3번", "4번"], c: 0 },
+        { q: "[5] 빈칸에 들어갈 가장 알맞은 것을 고르십시오.<br><br>작업장 내에서 화재가 발생했을 때 연기를 마시지 않도록 코와 입을 젖은 수건으로 막고 ____ 낮은 자세로 대피해야 합니다.", a: ["최대한", "전혀", "별로", "가끔"], c: 0 },
+        { q: "[6] 빈칸에 들어갈 가장 알맞은 것을 고르십시오.<br><br>우리 공장은 매달 한 번씩 기계의 이상 유무를 확인하는 _______점검을 실시합니다. 이를 통해 큰 사고를 미리 방지할 수 있습니다.", a: ["정기적인", "갑작스러운", "복잡한", "위험한"], c: 0 },
+        { q: "[7] 다음 단어의 비슷한 말은 무엇입니까?<br><b>비용을 지불하다</b>", a: ["내다", "받다", "빌리다", "아끼다"], c: 0 },
+        { q: "[8] 다음 단어의 반대말은 무엇입니까?<br><b>기계가 작동하다</b>", a: ["멈추다", "움직이다", "켜지다", "돌다"], c: 0 },
+        { q: "[9] 다음 그래프는 외국인 근로자들의 저축 목적에 대한 조사입니다. 옳은 것은?", img: "https://i.imgur.com/VRXuhxc.jpeg", a: ["집을 사려는 사람이 가장 많습니다.", "가족을 돕기 위해 저축하는 사람이 정확히 절반입니다.", "사업을 하려는 사람이 전체의 삼분의 일을 넘습니다.", "기타 목적이 두 번째로 많습니다."], c: 1 },
+        { q: "[10] 다음 중 '축산물'과 관계가 없는 단어는 무엇입니까?", a: ["우유", "달걀", "고구마", "돼지고기"], c: 2 },
+        { q: "[11] 이 글의 내용과 같은 것은 무엇입니까?<br><br>'한국 사람들은 밥을 먹을 때 국이나 찌개를 같이 먹는 경우가 많습니다. 특히 찌개는 큰 냄비에 담아 식탁 가운데 두고 여러 사람이 함께 떠먹기도 합니다.'", a: ["한국 사람들은 찌개를 각자 따로 먹습니다.", "식사할 때 어른보다 먼저 먹기 시작해야 합니다.", "밥을 먹을 때 국이나 찌개를 자주 먹습니다.", "식사가 끝나면 수저를 아무렇게나 둡니다."], c: 2 },
+        { q: "[12] 한국의 식사 예절에 대한 설명으로 옳은 것은 무엇입니까?", a: ["어른이 드시기 전에 먼저 먹습니다.", "찌개는 항상 혼자서만 먹어야 합니다.", "어른이 식사를 시작한 후에 먹기 시작합니다.", "숟가락만 사용해서 밥을 먹어야 합니다."], c: 2 },
+        { q: "[13] 빈칸에 들어갈 가장 알맞은 것을 고르십시오.<br><br>어제 공구함 정리를 ____ 필요한 공구를 금방 찾을 수 있어서 일이 빨리 끝났습니다.", a: ["했더니", "하도록", "하든지", "하니까"], c: 0 },
+        { q: "[14] 빈칸에 들어갈 가장 알맞은 것을 고르십시오.<br><br>겨울철 건설 현장에서는 빙판길에 미끄러지는 사고가 자주 발생합니다. 따라서 이동할 때는 항상 ____을/를 주의 깊게 살펴야 합니다.", a: ["바닥", "지붕", "하늘", "전선"], c: 0 },
+        { q: "[15] 무엇에 대한 글인지 고르십시오.<br><br>한국에서 취업 비자를 받아 일하는 외국인 근로자는 반드시 지정된 보험에 가입해야 합니다.", a: ["외국인 전용 보험", "한국의 축제 문화", "근로 시간 규정", "한국어 학습 방법"], c: 0 },
+        { q: "[16] 무엇에 대한 글인지 고르십시오.<br><br>이것은 물건을 높은 곳에서 낮은 곳으로, 혹은 그 반대로 수직 이동시키는 장치입니다.", a: ["엘리베이터", "컨베이어", "사다리", "손수레"], c: 0 },
+        { q: "[17] 내용과 같은 것을 고르십시오.<br><br>고용허가제를 통해 한국에 온 근로자는 처음 계약한 사업장에서 계속 일하는 것이 원칙입니다.", a: ["아무 이유가 없어도 회사를 옮길 수 있습니다.", "회사가 문을 닫아도 회사를 옮길 수 없습니다.", "정당한 사유가 있으면 사업장 변경이 가능합니다.", "고용센터의 허가 없이 회사를 옮겨도 됩니다."], c: 2 },
+        { q: "[18] 내용과 같은 것을 고르십시오.<br><br>인화성 물질이 있는 곳에서 용접 작업을 할 때는 폭발 사고의 위험이 매우 큽니다.", a: ["가스 근처에서 용접을 해도 안전합니다.", "용접 전에는 주변의 위험 물질을 치워야 합니다.", "소화기는 작업이 끝난 후에 준비합니다.", "인화성 물질은 폭발 사고와 관계가 없습니다."], c: 1 },
+        { q: "[19] 다음 설명에 알맞은 어휘를 고르십시오.<br><br>전선이나 기계에서 전기가 새어 나와 몸에 흐르는 사고를 무엇이라고 합니까?", a: ["감전", "추락", "충돌", "협착"], c: 0 },
+        { q: "[20] 다음 설명에 알맞은 어휘를 고르십시오.<br><br>근속 기간에 대한 퇴직금을 미리 정산하여 받는 제도를 무엇이라고 합니까?", a: ["퇴직금 중간정산", "최저임금제", "연장근로수당", "실업급여"], c: 0 }
+    ];
+
+    let idx = 0, userAns = Array(20).fill(null), clock = 1200, timerId, userPhoto = "https://i.imgur.com/edHMTVH.jpeg";
+
+    document.getElementById('file-input').onchange = (e) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => { userPhoto = ev.target.result; document.getElementById('img-prev').src = userPhoto; };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    document.getElementById('start-btn').onclick = () => {
+        if(!document.getElementById('c-name').value) return alert("Please enter name!");
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('exam-screen').style.display = 'flex';
+        document.getElementById('d-name').innerText = document.getElementById('c-name').value.toUpperCase();
+        render();
+        timerId = setInterval(() => {
+            clock--;
+            let m = Math.floor(clock/60), s = clock%60;
+            document.getElementById('timer-val').innerText = `${m}:${s<10?'0':''}${s}`;
+            if(clock <= 0) finish();
+        }, 1000);
+    };
+
+    function render() {
+        const qData = questions[idx];
+        document.getElementById('q-content').innerHTML = `
+            <div style="font-size:10px; color:var(--secondary); font-weight:800; margin-bottom:10px;">QUESTION ${idx + 1}/20</div>
+            <div class="q-text">${qData.q}</div>
+            ${qData.img ? `<img src="${qData.img}" class="img-q">` : ''}`;
+        
+        document.getElementById('ans-list').innerHTML = qData.a.map((opt, i) => `
+            <div class="ans-item ${userAns[idx] === i ? 'selected' : ''}" onclick="pick(${i})">
+                <div class="ans-num">${i+1}</div><div>${opt}</div>
+            </div>`).join('');
+        document.getElementById('rem-count').innerText = 20 - userAns.filter(a => a !== null).length;
+    }
+
+    window.pick = (i) => { userAns[idx] = i; render(); };
+    window.step = (d) => { if(idx+d >= 0 && idx+d < 20) { idx += d; render(); } };
+
+    async function finish() {
+        if(!confirm("Submit exam?")) return;
+        clearInterval(timerId);
+        let correctCount = 0;
+        let reviewHtml = "";
+
+        questions.forEach((q, i) => {
+            const isCorrect = userAns[i] === q.c;
+            if(isCorrect) correctCount++;
+            reviewHtml += `
+                <div class="rev-card" style="border-left: 6px solid ${isCorrect ? '#00ff87' : '#ff0055'}">
+                    <div class="rev-tag" style="background:${isCorrect ? '#00ff87' : '#ff0055'}">${isCorrect ? 'CORRECT' : 'WRONG'}</div>
+                    <div style="font-weight:700; font-size:13px; margin-bottom:10px;">Q${i+1}. ${q.q}</div>
+                    <div style="font-size:12px; background:#f1f5f9; padding:12px; border-radius:12px;">
+                        <div style="color:${isCorrect ? '#16a34a' : '#dc2626'}; font-weight:700;">Your Choice: ${userAns[i] !== null ? q.a[userAns[i]] : 'None'}</div>
+                        <div style="color:#2563eb; font-weight:700; margin-top:5px;">Correct Ans: ${q.a[q.c]}</div>
+                    </div>
+                </div>`;
+        });
+
+        let score = correctCount * 5;
+        let name = document.getElementById('c-name').value;
+
+        const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdj_G1NXz-QOpz8vwAFoItarscBXsu-NGRVQLb6YtgT1_n8xw/formResponse";
+        const formData = new FormData();
+        formData.append("entry.1391790926", name);
+        formData.append("entry.1713557545", score);
+        fetch(FORM_URL, { method: "POST", mode: "no-cors", body: formData });
+
+        document.getElementById('r-name').innerText = name.toUpperCase();
+        document.getElementById('r-photo').src = userPhoto;
+        document.getElementById('res-score').innerText = score;
+        document.getElementById('r-stats').innerText = `TOTAL CORRECT: ${correctCount}/20`;
+        document.getElementById('pass-fail-tag').innerText = score >= 80 ? "PASS" : "FAIL";
+        document.getElementById('pass-fail-tag').style.color = score >= 80 ? "#00ff87" : "#ff0055";
+        document.getElementById('review-list').innerHTML = reviewHtml;
+        
+        document.getElementById('exam-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'flex';
+    }
+
+    window.openGrid = () => {
+        let grid = userAns.map((a, i) => `<div onclick="idx=${i};render();closeGrid();" style="padding:14px 0; background:${a!==null?'var(--gradient)':'#f1f5f9'}; color:${a!==null?'#fff':'#475569'}; border-radius:12px; text-align:center; font-weight:800; cursor:pointer;">${i+1}</div>`).join('');
+        const pop = document.createElement('div'); pop.id = "grid-pop";
+        pop.style = "position:fixed; inset:0; background:rgba(8,14,26,0.95); z-index:9000; display:flex; align-items:center; justify-content:center; padding:20px;";
+        pop.innerHTML = `<div class="glass-card" style="background:#fff; padding:35px; border-radius:35px; display:grid; grid-template-columns:repeat(5,1fr); gap:15px; width:100%; max-width:380px;">${grid}</div>`;
+        pop.onclick = (e) => { if(e.target.id === 'grid-pop') closeGrid(); };
+        document.body.appendChild(pop);
+    };
+    window.closeGrid = () => document.getElementById('grid-pop')?.remove();
+    document.getElementById('sub-btn').onclick = finish;
+</script>
+</body>
+  </html>
+
